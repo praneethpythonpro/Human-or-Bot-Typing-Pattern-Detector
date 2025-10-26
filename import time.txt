@@ -1,0 +1,43 @@
+import time
+import statistics
+
+print("🤖 Human or Bot Tester")
+print("Type the sentence shown below:")
+sentence = "I am typing this to prove I am human."
+print("\n👉", sentence)
+
+input("Press ENTER when you're ready to start...")
+
+typing_times = []
+typed = ""
+start_time = time.time()
+
+for char in sentence:
+    t1 = time.time()
+    typed_char = input(f"Type this character: '{char}' : ")
+    t2 = time.time()
+    typed += typed_char
+    typing_times.append(t2 - t1)
+
+end_time = time.time()
+
+total_time = end_time - start_time
+average_time = statistics.mean(typing_times)
+
+print("\n⌛ Total time:", round(total_time, 2), "seconds")
+print("⏱️ Avg time per key:", round(average_time, 3), "seconds")
+
+# Decision Logic
+if typed != sentence:
+    print("\n❌ Characters did not match perfectly!")
+    print("Prediction: Probably a **Human** (Bots don't make typos).")
+else:
+    if average_time < 0.10:
+        print("\n⚡ So fast!!")
+        print("Prediction: Likely a **Bot** 🤖")
+    elif average_time < 0.25:
+        print("\n😎 Smooth and natural typing.")
+        print("Prediction: Definitely **Human** 🧑")
+    else:
+        print("\n🙂 A bit slow but okay.")
+        print("Prediction: **Human, maybe thinking while typing** 🧠")
